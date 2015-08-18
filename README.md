@@ -2,7 +2,7 @@
 
 > Assertions that can be used when working with Deku/React and JSX.
 
-## Usage
+## API
 
 ### assert.isNode(node, [type])
 
@@ -97,3 +97,31 @@ Checks that the given `node` does **not** have any child nodes.
 ```js
 assert.notHasChildren(<div />);
 ```
+
+## Using with Deku
+
+When unit-testing deku components, you'll typically run the `render()` function and
+make assertions against the virtual element it returns.
+
+```js
+let Button = {
+  render({ props }) {
+    return <button type={props.type}>{props.children}</button>
+  }
+};
+
+var component = {
+  props: {
+    type: 'submit',
+    children: 'Hello World'
+  }
+};
+
+assert.isNode(Button.render(component), 'button');
+assert.hasAttribute(Button.render(component), 'type', 'submit');
+assert.hasChildren(Button.render(component), [ 'Hello World' ]);
+```
+
+This is a trivial example of course, but you can easily introduce variables and
+other dynamic code in order to test that your components properly understand the
+various `props` and `state` that they will receive.
