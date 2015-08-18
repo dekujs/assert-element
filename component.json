@@ -1,0 +1,10 @@
+{
+  "name": "virtual-element-assertions",
+  "version": "0.0.0",
+  "dependencies": {
+    "component/assert": "*"
+  },
+  "development": {
+    "dekujs/virtual-element": "*"
+  }
+}
