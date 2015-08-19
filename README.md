@@ -64,7 +64,8 @@ assert.notHasClass(<div class="a" />, 'b');
 Checks that the given `node` has child nodes matching the `children` argument:
 
  - when a `Number`, it will ensure `node` has that many child nodes
- - when a `Function`, it will all the child nodes pass that as a truth test
+ - when a `Function`, it will run the function against each child node (which should
+   throw if they are invalid)
  - when an `Array`, it will check for loose/deep equality
  - when not specified, it will just make sure the `node` has at least 1 child
 
