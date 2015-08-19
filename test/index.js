@@ -119,6 +119,10 @@ describe('node', function () {
     it('should throw when the node has no class names', fail(function () {
       assertions.hasClass(element('div'), 'b');
     }));
+
+    it('should throw when the class is not a string', fail(function () {
+      assertions.hasClass(element('div', { class: { a: true, b: false } }), 'a');
+    }));
   });
 
   describe('.notHasClass(node, name)', function () {

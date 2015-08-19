@@ -121,6 +121,7 @@ exports.notHasClass = function (node, name) {
  */
 function classes(input) {
   if (!input) return [];
+  assert.strictEqual(typeof input, 'string', 'expected a string for the class name');
   if (!input.trim()) return [];
   return input.trim().split(/\s+/g);
 }
