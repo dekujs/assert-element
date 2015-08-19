@@ -1,4 +1,4 @@
-# virtual-element-assertions
+# assert-element
 
 > Assertions that can be used when working with Deku/React and JSX.
 
@@ -98,7 +98,7 @@ Checks that the given `node` does **not** have any child nodes.
 assert.notHasChildren(<div />);
 ```
 
-## Using with Deku
+## Using with Deku Components
 
 When unit-testing deku components, you'll typically run the `render()` function and
 make assertions against the virtual element it returns.

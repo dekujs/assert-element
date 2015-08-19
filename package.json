@@ -1,8 +1,8 @@
 {
-  "name": "virtual-element-assertions",
+  "name": "assert-element",
   "version": "0.0.0",
   "description": "Assertions for checking virtual nodes used by Deku/React/etc",
-  "repository": "dominicbarnes/virtual-element-assertions",
+  "repository": "dekujs/assert-element",
   "devDependencies": {
     "mocha": "^2.2.5",
     "virtual-element": "*"
