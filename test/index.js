@@ -182,19 +182,17 @@ describe('node', function () {
       assertions.hasChildren(element('div', null, 'a', 'b'), [ 'a' ]);
     }));
 
-    it('should not throw when the fn test passes for every node', function () {
+    it('should not throw when the fn does not throw for any node', function () {
       assertions.hasChildren(element('div', null, 'a'), test);
 
-      function test(child) {
-        return child === 'a';
-      }
+      function test(child) {}
     });
 
-    it('should throw when the fn test fails for a single node', fail(function () {
+    it('should throw when the fn throws for any node', fail(function () {
       assertions.hasChildren(element('div', null, 'a', 'b'), test);
 
       function test(child) {
-        return child === 'a';
+        throw new Error('fail');
       }
     }));
   });

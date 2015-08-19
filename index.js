@@ -53,8 +53,8 @@ exports.notHasAttribute = function (node, attr) {
  *  - when an `Array`, it will ensure that the child nodes are loosely equal.
  *  - when a `Number`, it will ensure that the number of child nodes matches
  *    that number.
- *  - when a `Function`, it will ensure that the child nodes all match the
- *    test in that function. (ie: `Array#every()` must return true)
+ *  - when a `Function`, it will run the fn against each node, where they are
+ *    expected to throw if they are invalid.
  *
  * @param {Object} node        The virtual node to check.
  * @param {*}      [children]  The criteria for the child nodes. (see above)
@@ -66,7 +66,7 @@ exports.hasChildren = function (node, children) {
   } else if (typeof children === 'number') {
     assert.strictEqual(node.children.length, children);
   } else if (typeof children === 'function') {
-    assert(node.children.every(children), 'expected the child nodes to pass the function test');
+    node.children.forEach(children);
   } else {
     assert(node.children.length > 0, 'expected to find child nodes');
   }
