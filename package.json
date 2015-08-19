@@ -1,6 +1,6 @@
 {
   "name": "assert-element",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Assertions for checking virtual nodes used by Deku/React/etc",
   "repository": "dekujs/assert-element",
   "devDependencies": {
