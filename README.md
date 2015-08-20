@@ -99,6 +99,37 @@ Checks that the given `node` does **not** have any child nodes.
 assert.notHasChildren(<div />);
 ```
 
+### assert.hasChild(node, index, [criteria])
+
+Check if the given `node` at a given zero-indexed `index` has the corresponding
+`child`, using the following `criteria`:
+
+ - When a `Function`, it will run `criteria`, passing the child node as an
+   argument. `criteria` is expected to throw an error if the node is invalid.
+ - Otherwise, it will do a deep comparison between the child node and
+   the criteria.
+
+```js
+var node = (
+  <ul>
+    <li>a</li>
+    <li>b</li>
+    <li>c</li>
+  </ul>
+);
+
+// make sure a child at index 0 exists
+assert.hasChildren(node, 0);
+
+// do a deep comparison on the child at index 0
+assert.hasChildren(node, 0, 'div');
+
+// run other assertions on the child node
+assert.hasChild(node, 0, function (child) {
+  assert.isNode(child, 'li);
+});
+```
+
 ## Using with Deku Components
 
 When unit-testing deku components, you'll typically run the `render()` function and
