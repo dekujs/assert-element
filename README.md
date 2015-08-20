@@ -119,10 +119,10 @@ var node = (
 );
 
 // make sure a child at index 0 exists
-assert.hasChildren(node, 0);
+assert.hasChild(node, 0);
 
 // do a deep comparison on the child at index 0
-assert.hasChildren(node, 0, 'div');
+assert.hasChild(node, 0, 'div');
 
 // run other assertions on the child node
 assert.hasChild(node, 0, function (child) {
