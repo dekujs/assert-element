@@ -73,8 +73,8 @@ exports.hasChildren = function (node, children) {
 };
 
 /**
- * Check if the given `node` at a given `index` has the corresponding `child`,
- * using the following `criteria`:
+ * Check if the given `node` at a given zero-indexed `index` has the
+ * corresponding `child`, using the following `criteria`:
  *
  *  - When a `Function`, it will run `criteria`, passing the child node as an
  *    argument. `criteria` is expected to throw an error if the node is invalid.
