@@ -73,6 +73,34 @@ exports.hasChildren = function (node, children) {
 };
 
 /**
+ * Check if the given `node` at a given `index` has the corresponding `child`,
+ * using the following `criteria`:
+ *
+ *  - When a `Function`, it will run `criteria`, passing the child node as an
+ *    argument. `criteria` is expected to throw an error if the node is invalid.
+ *  - Otherwise, it will do a deep comparison between the child node and
+ *    the criteria.
+ *
+ * @param {Object} node        The virtual node to check.
+ * @param {number} index       The index of the child to inspect. Zero indexed.
+ * @param {*}      [criteria]  The criteria for the child nodes. (see above)
+ */
+exports.hasChild = function (node, index, criteria) {
+  if (arguments.length === 2) criteria = noop;
+  exports.isNode(node);
+  assert(node.children.length > 0, 'provided node has no children');
+  assert(typeof index === 'number', 'provided index is not a number');
+  assert(index >= 0, 'provided index cannot be negative');
+  var child = node.children[index];
+  assert(child !== undefined, 'child does not exist at the given index');
+  if (typeof criteria === 'function') {
+    criteria(child);
+  } else {
+    assert.deepEqual(child, criteria);
+  }
+};
+
+/**
  * Ensures that the given `node` does not have any child nodes.
  *
  * @param {Object} node  The virtual node to check.
@@ -125,3 +153,8 @@ function classes(input) {
   if (!input.trim()) return [];
   return input.trim().split(/\s+/g);
 }
+
+/**
+ * No operation.
+ */
+function noop() {}
