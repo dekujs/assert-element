@@ -25,6 +25,15 @@ assert.hasAttribute(<a href="http://example.com/">Home</a>, 'href');
 assert.hasAttribute(<button type="submit">Submit</button>, 'type', 'submit');
 ```
 
+When using a `Function`, it will be invoked with the attribute value. From there, you
+can run any other assertion that should throw if the value is invalid.
+
+```js
+assert.hasAttribute(<Select options={[ 'a', 'b' ]} />, 'options', function (options) {
+  assert.deepEqual(options, [ 'a', 'b', 'c' ]); // will fail
+});
+```
+
 **NOTE:** this allows for falsy values, as an attribute can be present but intentionally
 false, such as `checked={false}`.
 

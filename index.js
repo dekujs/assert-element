@@ -30,7 +30,13 @@ exports.hasAttribute = function (node, attr, value) {
   exports.isNode(node);
   assert(attr, 'expected an attribute name');
   assert(attr in node.attributes, 'expected to find the attribute ' + attr + ' in the given node');
-  if (value) assert.strictEqual(node.attributes[attr], value);
+  if (value) {
+    if (typeof value === 'function') {
+      value(node.attributes[attr]);
+    } else {
+      assert.strictEqual(node.attributes[attr], value);
+    }
+  }
 };
 
 /**
