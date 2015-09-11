@@ -1,4 +1,9 @@
 
+0.1.0 / 2015-09-11
+==================
+
+  * hasAttribute: supporting function argument
+
 0.0.3 / 2015-08-20
 ==================
 
