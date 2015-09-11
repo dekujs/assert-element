@@ -92,17 +92,20 @@ exports.hasChildren = function (node, children) {
  * @param {*}      [criteria]  The criteria for the child nodes. (see above)
  */
 exports.hasChild = function (node, index, criteria) {
-  if (arguments.length === 2) criteria = noop;
   exports.isNode(node);
   assert(node.children.length > 0, 'provided node has no children');
   assert(typeof index === 'number', 'provided index is not a number');
   assert(index >= 0, 'provided index cannot be negative');
+
   var child = node.children[index];
-  assert(child !== undefined, 'child does not exist at the given index');
-  if (typeof criteria === 'function') {
-    criteria(child);
-  } else {
-    assert.deepEqual(child, criteria);
+  assert(typeof child !== 'undefined', 'child does not exist at the given index');
+
+  if (criteria) {
+    if (typeof criteria === 'function') {
+      criteria(child);
+    } else {
+      assert.deepEqual(child, criteria);
+    }
   }
 };
 
