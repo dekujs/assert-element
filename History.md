@@ -1,4 +1,9 @@
 
+0.3.0 / 2015-09-16
+==================
+
+  * hasChildren: support a single string element as the criteria
+
 0.2.0 / 2015-09-16
 ==================
 
