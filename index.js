@@ -73,6 +73,8 @@ exports.hasChildren = function (node, children) {
     assert.strictEqual(node.children.length, children);
   } else if (typeof children === 'function') {
     node.children.forEach(children);
+  } else if (typeof children === 'string') {
+    assert.deepEqual(node.children, [ children ]);
   } else {
     assert(node.children.length > 0, 'expected to find child nodes');
   }

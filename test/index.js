@@ -186,6 +186,18 @@ describe('node', function () {
       assertions.hasChildren(element('div', null, 'a', 'b'), [ 'a' ]);
     }));
 
+    it('should treat a string argument as a single child array', function () {
+      assertions.hasChildren(element('div', null, 'a'), 'a');
+    });
+
+    it('should throw if the children does not match the single argument', fail(function () {
+      assertions.hasChildren(element('div', null, 'a'), 'b');
+    }));
+
+    it('should throw if there are multiple children and a single argument is passed', fail(function () {
+      assertions.hasChildren(element('div', null, 'a', 'b'), 'a');
+    }));
+
     it('should not throw when the fn does not throw for any node', function () {
       assertions.hasChildren(element('div', null, 'a'), test);
 
