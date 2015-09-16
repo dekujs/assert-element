@@ -151,7 +151,7 @@ describe('node', function () {
     });
   });
 
-  describe('.hasChild(node, child, children)', function () {
+  describe('.hasChildren(node, children)', function () {
     it('should throw when missing the node', fail(function () {
       assertions.hasChildren();
     }));
@@ -201,6 +201,24 @@ describe('node', function () {
     }));
   });
 
+  describe('.notHasChildren(node)', function () {
+    it('should throw when missing the node', fail(function () {
+      assertions.notHasChildren();
+    }));
+
+    it('should throw for objects that are not virtual nodes', fail(function () {
+      assertions.notHasChildren({});
+    }));
+
+    it('should not throw when there are no children', function () {
+      assertions.notHasChildren(element('div'));
+    });
+
+    it('should not throw when there are children', fail(function () {
+      assertions.notHasChildren(element('div', null, 'hello world'));
+    }));
+  });
+
   describe('.hasChild(node, index, [fn])', function () {
     it('should throw when missing the node', fail(function () {
       assertions.hasChild();
@@ -229,6 +247,22 @@ describe('node', function () {
     it('should not throw when there are children and an index is provided', function () {
       assertions.hasChild(element('div', null, 'hello world'), 0);
     });
+
+    context('with array for index', function () {
+      var root = element('ul', null, [
+        element('li', null, element('a', { href: 'http://example.com/' })),
+        element('li', null, element('a', { href: 'http://example.org/' }))
+      ]);
+
+      it('should not throw when it finds the right child', function () {
+        assertions.hasChild(root, [ 0, 0 ]);
+        assertions.hasChild(root, [ 1, 0 ]);
+      });
+
+      it('should throw when it cannot find a child', fail(function () {
+        assertions.hasChild(root, [ 2, 0 ]);
+      }));
+    });
   });
 
   describe('.hasChild(node, index, criteria)', function () {
@@ -241,6 +275,26 @@ describe('node', function () {
       it('should throw when the deep comparison fails', fail(function() {
         assertions.hasChild(element('div', null, 'a', 'b'), 0, 'b');
       }));
+
+      context('with array for index', function () {
+        var root = element('ul', null, [
+          element('li', null, element('b', null, 'Hello')),
+          element('li', null, element('span', null, 'World'))
+        ]);
+
+        it('should not throw when it finds the right child', function () {
+          assertions.hasChild(root, [ 0, 0, 0 ], 'Hello');
+          assertions.hasChild(root, [ 1, 0, 0 ], 'World');
+        });
+
+        it('should throw when it cannot find a child', fail(function () {
+          assertions.hasChild(root, [ 2, 0, 0 ], 'Hello');
+        }));
+
+        it('should throw when deep comparison fails', fail(function () {
+          assertions.hasChild(root, [ 1, 0, 0 ], 'Hello');
+        }));
+      });
     });
 
     describe('criteria is a function', function() {
@@ -257,25 +311,28 @@ describe('node', function () {
 
         function test(child) {}
       });
+
+      context('with array for index', function () {
+        var root = element('ul', null, [
+          element('li', null, element('b', null, 'Hello')),
+          element('li', null, element('span', null, 'World'))
+        ]);
+
+        it('should not throw when `criteria` does not throw', function () {
+          assertions.hasChild(root, [ 0, 0, 0 ], test);
+
+          function test(child) {}
+        });
+
+        it('should throw when `criteria throws`', fail(function () {
+          assertions.hasChild(root, [ 2, 0, 0 ], test);
+
+          function test(child) {
+            throw new Error('fail');
+          }
+        }));
+      });
     });
-  });
-
-  describe('.notHasChildren(node)', function () {
-    it('should throw when missing the node', fail(function () {
-      assertions.notHasChildren();
-    }));
-
-    it('should throw for objects that are not virtual nodes', fail(function () {
-      assertions.notHasChildren({});
-    }));
-
-    it('should not throw when there are no children', function () {
-      assertions.notHasChildren(element('div'));
-    });
-
-    it('should not throw when there are children', fail(function () {
-      assertions.notHasChildren(element('div', null, 'hello world'));
-    }));
   });
 });
 

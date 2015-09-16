@@ -94,11 +94,12 @@ exports.hasChildren = function (node, children) {
 exports.hasChild = function (node, index, criteria) {
   exports.isNode(node);
   assert(node.children.length > 0, 'provided node has no children');
-  assert(typeof index === 'number', 'provided index is not a number');
-  assert(index >= 0, 'provided index cannot be negative');
 
-  var child = node.children[index];
-  assert(typeof child !== 'undefined', 'child does not exist at the given index');
+  var child = Array.isArray(index)
+    ? deepChild(node, index)
+    : node.children[index];
+
+  assert(typeof child !== 'undefined', 'child does not exist at the given index ' + index);
 
   if (criteria) {
     if (typeof criteria === 'function') {
@@ -161,6 +162,21 @@ function classes(input) {
   assert.strictEqual(typeof input, 'string', 'expected a string for the class name');
   if (!input.trim()) return [];
   return input.trim().split(/\s+/g);
+}
+
+/**
+ * Retrieve a deep child via an input array `index` of indices to traverse.
+ *
+ * @param {Object} node  The virtual node to traverse.
+ * @param {Array:Number} path  The path to traverse.
+ * @return {Object}
+ */
+
+function deepChild(root, path) {
+  return path.reduce(function (node, index, x) {
+    assert(index in node.children, 'child does not exist at the given deep index ' + path.join('.'));
+    return node.children[index];
+  }, root);
 }
 
 /**
