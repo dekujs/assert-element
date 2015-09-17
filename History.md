@@ -1,4 +1,9 @@
 
+0.3.1 / 2015-09-17
+==================
+
+  * hasAttribute/hasChild: allowing falsy criteria
+
 0.3.0 / 2015-09-16
 ==================
 
