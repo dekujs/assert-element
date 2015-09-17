@@ -30,7 +30,7 @@ exports.hasAttribute = function (node, attr, value) {
   exports.isNode(node);
   assert(attr, 'expected an attribute name');
   assert(attr in node.attributes, 'expected to find the attribute ' + attr + ' in the given node');
-  if (value) {
+  if (typeof value !== 'undefined') {
     if (typeof value === 'function') {
       value(node.attributes[attr]);
     } else {
@@ -103,7 +103,7 @@ exports.hasChild = function (node, index, criteria) {
 
   assert(typeof child !== 'undefined', 'child does not exist at the given index ' + index);
 
-  if (criteria) {
+  if (typeof criteria !== 'undefined') {
     if (typeof criteria === 'function') {
       criteria(child);
     } else {

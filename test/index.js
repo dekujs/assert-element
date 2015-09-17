@@ -68,6 +68,10 @@ describe('node', function () {
     it('should not treat falsy values as a missing attribute', function () {
       assertions.hasAttribute(element('input', { disabled: false }), 'disabled');
     });
+
+    it('should fail when the attribute is falsy and does not match', fail(function() {
+      assertions.hasAttribute(element('input', { disabled: true }), 'disabled', false);
+    }));
   });
 
   describe('.notHasAttribute(node, attr)', function () {
@@ -286,6 +290,10 @@ describe('node', function () {
 
       it('should throw when the deep comparison fails', fail(function() {
         assertions.hasChild(element('div', null, 'a', 'b'), 0, 'b');
+      }));
+
+      it('should throw when the criteria is falsy and does not match', fail(function () {
+        assertions.hasChild(element('div', null, 'a', 'b'), 0, null);
       }));
 
       context('with array for index', function () {
