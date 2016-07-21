@@ -135,7 +135,7 @@ assert.hasChild(node, 0, 'div');
 
 // run other assertions on the child node
 assert.hasChild(node, 0, function (child) {
-  assert.isNode(child, 'li);
+  assert.isNode(child, 'li');
 });
 ```
 
